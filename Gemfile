@@ -44,6 +44,7 @@ group :development, :test do
   gem "annotate"
   gem "bcrypt"
   gem "jquery-rails"
+  gem "rest-client"
 end
 
 group :development do
