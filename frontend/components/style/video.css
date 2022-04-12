@@ -1,0 +1,38 @@
+/* .video{
+    border: 2px black solid;
+    margin: 0.5rem;
+    width: 90%;
+    overflow: hidden;
+    padding: 0.5rem;
+    justify-content: space-between;
+    max-height: 8rem;
+}
+.image{
+    min-width: 40%;
+    display: flex;
+    overflow: hidden;
+    object-fit: cover;
+}
+.videoInfo{
+    width: 60%;
+    padding: 0.5rem;
+}
+.description{
+    max-height: 50%;
+    overflow: scroll;
+} */
+
+.video{
+ width: 60%;
+ height: 10rem;
+}
+.card-img{
+    width: 25% !important;
+}
+.card-body{
+    width: 40%;
+}
+.description{
+   overflow-y: scroll;
+   height: 20%;
+}

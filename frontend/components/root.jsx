@@ -5,8 +5,9 @@ import Video from "./video"
 import UserList from "./userlist";
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Carousel from "react-bootstrap/Carousel"
 import Button from 'react-bootstrap/Button';
+//Style
+import "./style/root.css";
 
 const Root = () => {
     const [videos, setVideos] = useState([]);
@@ -17,26 +18,26 @@ const Root = () => {
         .then(res => res.json())
         .then(response => {
             setVideos(response.videos)
-            console.log(videos)
         })
-    }, [start])
+    }, [])
 
     const handleStart = () =>{
         setStart(!start)
     }
-
+    
+    const checkVideos  = () => {
+        if(videos.length === 0){
+            return (<div></div>)
+        }else{
+            return(
+                <Video videos={videos} />
+            )
+        }
+    }
     return (
-        <div>
-            <h1>hello </h1>
-            {/* <Button onClick={handleStart}>Start</Button> */}
-            {/* <Carousel> */}
-                {!videos == " " ? ( videos.map((video, idx) => (
-                    // <Carousel.Item  key={idx} >
-                        <Video key={idx} video={video}/>     
-                    /* </Carousel.Item> */
-                ))) : <h1>Something is wrong</h1> }
-            {/* </Carousel> */}
-            <UserList />
+        <div className="text-center">
+            <h1>My Video PlayList </h1>
+            {checkVideos()}
         </div>   
     )
 }
