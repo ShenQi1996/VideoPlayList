@@ -22,17 +22,30 @@
     overflow: scroll;
 } */
 
-.video{
- width: 60%;
- height: 10rem;
+.videoContainer{
+    position: relative;
+    padding: 1rem;
+    height: 80%;
 }
-.card-img{
-    width: 25% !important;
+.videoslist{
+    width: 50%;
+    height: 50rem;
+    overflow-y: scroll;
 }
-.card-body{
-    width: 40%;
+
+.card-title{
+    /* font-size: 0.9rem !important; */
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+.PlayListCardBody{ 
+    width: 55%;
 }
 .description{
-   overflow-y: scroll;
-   height: 20%;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
 }
+
+
