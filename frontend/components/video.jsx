@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 //Beautiful DND
 import { DragDropContext } from "react-beautiful-dnd";
@@ -21,6 +21,9 @@ const reorder = (list, startIndex, endIndex) => {
 
 const Video = ({videos}) => {
     const [items, setItems] = useState(videos)
+    useEffect(() => {
+        setItems(videos)
+    }, [videos])
     const onDragEnd = (result) =>{
         // dropped outside the list
         if (!result.destination) {
@@ -30,47 +33,62 @@ const Video = ({videos}) => {
         setItems(newItems)
     };
 
+
+    const handleVideos = () => {
+        if(items.length === 0){
+            return (
+                <h1>Nothing is in videos</h1>
+            )
+        }else{
+            return(
+                <>
+                    <div className="mx-3 ratio videoPlayer">
+                        <iframe
+                            src={`https://www.youtube.com/embed/${items[0].video_id}`}
+                            title="YouTube video"
+                            allowFullScreen
+                        ></iframe>
+                    </div> 
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId="droppable">
+                        {(provided) => (
+                            <CardGroup className="d-block align-items-center videoslist"
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            >
+                            {items.map((video, index) => (
+                                <Draggable key={video.id.toString()} draggableId={video.id.toString()} index={index}>
+                                {(provided) => (
+                                    <Card className="video mb-2 flex-row" 
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    >
+                                    <Card.Img variant="" className="image" src={video.thumbnail_url} />
+                                    <Card.Body className="PlayListCardBody">
+                                        <Card.Title>{video.title}</Card.Title>
+                                        <Card.Text className="description">
+                                            {video.description}
+                                        </Card.Text>
+                                        View Count: {video.views}
+                                    </Card.Body>
+                                    </Card>
+                                )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                            </CardGroup>
+                        )}
+                        </Droppable>
+                    </DragDropContext>
+                </>
+            )
+        }
+    }
+
     return(
         <div className="d-flex videoContainer">
-            <div className="mx-3 ratio videoPlayer">
-                <iframe
-                    src={`https://www.youtube.com/embed/${items[0].video_id}`}
-                    title="YouTube video"
-                    allowFullScreen
-                ></iframe>
-            </div>
-            <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable">
-                {(provided) => (
-                    <CardGroup className="d-block align-items-center videoslist"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    >
-                    {items.map((video, index) => (
-                        <Draggable key={video.id.toString()} draggableId={video.id.toString()} index={index}>
-                        {(provided) => (
-                            <Card className="video mb-2 flex-row" 
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            >
-                            <Card.Img variant="" className="image" src={video.thumbnail_url} />
-                            <Card.Body className="PlayListCardBody">
-                                <Card.Title>{video.title}</Card.Title>
-                                <Card.Text className="description">
-                                    {video.description}
-                                </Card.Text>
-                                View Count: {video.views}
-                            </Card.Body>
-                            </Card>
-                        )}
-                        </Draggable>
-                    ))}
-                    {provided.placeholder}
-                    </CardGroup>
-                )}
-                </Droppable>
-            </DragDropContext>
+            {handleVideos()}
         </div>
     )
 }

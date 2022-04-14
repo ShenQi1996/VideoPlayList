@@ -2,7 +2,6 @@ import React from "react"
 
 //Components
 import MyButton from "./mybutton";
-
 //Bootstrap
 import Card from "react-bootstrap/Card"
 import Row from "react-bootstrap/Row"
