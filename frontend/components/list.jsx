@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 //Components
 import MyButton from "./mybutton";
@@ -12,9 +12,13 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import "./style/list.css";
 
 const List = ({videos, mylist, setMyList}) => {    
+    const [state, setState] = useState(videos)
+    useEffect(() => {
+        setState(videos)
+    }, [videos])
     return (
         <Row xs={1} md={5} className="g-4 my-3">
-            {videos.map((video, idx) => (
+            {state.map((video, idx) => (
             <Col key={idx}>
                 <Card className="d-flex text-center">
                     <Card.Img variant="top" src={video.thumbnail_url} />

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 
 //Components
 import Video from "./video"
@@ -7,78 +7,60 @@ import List from "./list";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import Button from 'react-bootstrap/Button';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 //Style
 import "./style/root.css";
 
 const Root = () => {
     const [videos, setVideos] = useState([]);
-    const [start, setStart] = useState(false)
+    const [page, setPage] = useState(1)
     const [mylist, setMyList] = useState([])
-    const pageNum = useRef()
     useEffect(() => {
-        fetch("http://localhost:3000/videos")
+        fetch(`https://mock-youtube-api.herokuapp.com/api/videos?page=${page.toString()}`)
         .then(res => res.json())
         .then(response => {
-            console.log()
             setVideos(response.videos)
         })
-    }, [])
+    }, [page])
 
+    const handleNext = (page) => {
+        setPage(page+1);
+    }
+    const handlePre = (page) => {
+        if(page === 0){
+            return console.error("Page can not go blow 0");
+        }else{
+            setPage(page-1)
+        }
+    }
 
-    // const handleStart = () =>{
-    //     if(mylist.length === 0){
-    //         return (
-    //             console.log("Something is worng")
-    //         )
-    //     }else{
-    //         setStart(!start)
-    //     }
-    //     // setFetchV(!fetchV)
-    // }
-
-
-    // const fetchVideos = () =>{
-    //     fetch("http://localhost:3000/videos")
-    //     .then(res => res.json())
-    //     .then(response => {
-    //         setVideos(response.videos)
-    //         setFetchV(!fetchV)
-    //     })
-    // }
-
-
-    // const handleButtons = () =>{
-    //     if(!fetchV){
-    //         return(
-    //             <Button onClick={fetchVideos}>Fetch Video</Button>
-    //         )
-    //     }else{
-    //         return(
-    //             <div>
-    //                 <Button onClick={handleStart}>Start</Button>
-    //                 <List videos={videos} mylist={mylist} setMyList={setMyList} />
-    //             </div>
-    //         )
-    //     }
-    // }
-
-    // const checkVideos  = () => {
-    //     if(mylist.length === 0){
-    //         return (<div></div>)
-    //     }else{
-    //         return(
-    //             <Video videos={mylist} />
-    //         )
-    //     }
-    // }
-
-    console.log(mylist)
+    const handlePagesBtn = () => {
+        if(page === 1){
+            return (
+                <Button className="my-4" onClick={() => handleNext(page)}>Next</Button> 
+            )
+        }else{
+            return (
+                <div className="my-4">
+                    <Row xs={1} md={2} className="g-4" >
+                        <Col>
+                            <Button onClick={() => handlePre(page)}>Prev</Button> 
+                        </Col>
+                        <Col>
+                            <Button onClick={() => handleNext(page)}>Next</Button> 
+                        </Col>
+                    </Row>
+                </div>
+            )
+        }
+    }
     return (
         <Container className="text-center">
             <h1>My Video PlayList </h1>
-            {/* <Button onClick={handleStart}>Create</Button> */}
-            <List videos={videos} mylist={mylist} setMyList={setMyList} />
             <Video videos={mylist} setMyList={setMyList} />
+            <List videos={videos} mylist={mylist} setMyList={setMyList} />
+            {handlePagesBtn()}
         </Container>   
     )
 }

@@ -37,7 +37,7 @@ const Video = ({videos}) => {
     const handleVideos = () => {
         if(items.length === 0){
             return (
-                <h1>Nothing is in videos</h1>
+                <h1>Nothing is in the PlayList</h1>
             )
         }else{
             return(
