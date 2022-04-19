@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 
 //Components
-import Video from "./video"
+import Video from "./video";
 import List from "./list";
+import MyPlayList from "./MyPlayList";
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
@@ -58,7 +59,8 @@ const Root = () => {
     return (
         <Container className="text-center">
             <h1>My Video PlayList </h1>
-            <Video videos={mylist} setMyList={setMyList} />
+            <MyPlayList mylist={mylist} />
+            {/* <Video videos={mylist}/> */}
             <List videos={videos} mylist={mylist} setMyList={setMyList} />
             {handlePagesBtn()}
         </Container>   

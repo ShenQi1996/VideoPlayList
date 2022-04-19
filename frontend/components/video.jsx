@@ -33,6 +33,7 @@ const Video = ({videos}) => {
         setItems(newItems)
     };
 
+    console.log(items[0].title)
 
     const handleVideos = () => {
         if(items.length === 0){

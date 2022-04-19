@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_07_210732) do
+ActiveRecord::Schema.define(version: 2022_04_18_183546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lists", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "videos", default: [], array: true
+  end
 
   create_table "video", force: :cascade do |t|
     t.string "title"
