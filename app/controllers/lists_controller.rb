@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+    require 'json'
     skip_before_action :verify_authenticity_token
     def index
         @lists = List.all
@@ -27,7 +28,7 @@ class ListsController < ApplicationController
     private
 
     def list_params
-        params.permit(:title, videos:[:title, :video_id, :views, :likes, :comments, :description, :thumbnail_url])
+        params.permit(:title, videos_id:[], videos_title:[], views:[], likes:[], comments:[], descriptions:[], thumbnail_urls:[]  )
     end
 
 end

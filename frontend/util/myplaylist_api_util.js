@@ -12,14 +12,31 @@ export const fetchPlayLists = () => {
   return response;
 };
 
-export const createPlayList = (title, videos) => {
-  console.log(videos);
+export const createPlayList = (
+  title,
+  videos_id,
+  videos_title,
+  views,
+  likes,
+  comments,
+  descriptions,
+  thumbnail_urls
+) => {
   fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title: title, videos: [...videos] }),
+    body: JSON.stringify({
+      title: title,
+      videos_id: [...videos_id],
+      videos_title: [...videos_title],
+      views: [...views],
+      likes: [...likes],
+      comments: [...comments],
+      descriptions: [...descriptions],
+      thumbnail_urls: [...thumbnail_urls],
+    }),
   })
     .then(response => response.json())
     .then(data => {

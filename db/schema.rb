@@ -17,19 +17,16 @@ ActiveRecord::Schema.define(version: 2022_04_18_183546) do
 
   create_table "lists", force: :cascade do |t|
     t.string "title", null: false
-    t.text "videos", default: [], array: true
-  end
-
-  create_table "video", force: :cascade do |t|
-    t.string "title"
-    t.string "video_id"
-    t.integer "views"
-    t.integer "likes"
-    t.integer "comments"
-    t.text "description"
-    t.string "thumbnail_url"
+    t.text "videos_id", default: [], array: true
+    t.string "videos_title", default: [], array: true
+    t.integer "views", default: [], array: true
+    t.integer "likes", default: [], array: true
+    t.integer "comments", default: [], array: true
+    t.text "descriptions", default: [], array: true
+    t.string "thumbnail_urls", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
 
 end
