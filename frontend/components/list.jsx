@@ -17,7 +17,7 @@ const List = ({videos, mylist, setMyList}) => {
         setState(videos)
     }, [videos])
     return (
-        <Row xs={1} md={5} className="g-4 my-3">
+        <Row xs={1} md={4} className="g-4 my-3">
             {state.map((video, idx) => (
             <Col key={idx}>
                 <Card className="d-flex text-center">
@@ -28,10 +28,7 @@ const List = ({videos, mylist, setMyList}) => {
                                 {video.description}
                         </Card.Text>
                     </Card.Body>
-                    <ListGroup className="list-group-flush">
-                        <ListGroupItem>View Count: {video.views}</ListGroupItem>
-                    </ListGroup>
-                    <Card.Footer>
+                    <Card.Footer className="d-flex flex-column">
                         <MyButton video={video} mylist={mylist} setMyList={setMyList} />
                     </Card.Footer>
                 </Card>

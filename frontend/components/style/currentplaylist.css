@@ -1,0 +1,33 @@
+.form-control{
+    background-color: #303030 !important;
+    color: #ffff !important;
+    border-color: #181818 !important;
+}
+
+.videoViewer{
+    height: 25rem;
+}
+
+.text_description{
+    text-align: left;
+}
+
+.text_description > p { 
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    border-bottom: 1px grey solid;
+}
+.text_description > div {
+    border-bottom: 1px grey solid;
+    padding: 0.5rem;
+}
+
+
+.FormPlaylist{
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+}

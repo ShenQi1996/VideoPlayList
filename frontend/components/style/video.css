@@ -28,6 +28,11 @@
     white-space:nowrap;
     text-overflow: ellipsis;
 }
+.video_title{
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
 
 .description{
     overflow: hidden;
@@ -39,4 +44,17 @@
    height: 20rem;
    display: flex;
    justify-content: center;
+}
+
+.btn_col{
+    text-align: left;
+}
+.unSavePlayList{
+    padding-bottom: 1rem;
+}
+
+.playlistItem{
+    border-top: 1px #303030 solid;
+    border-bottom: 1px #303030 solid;
+    margin: 0;
 }

@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from "react";
 
+
+//Api
+import { deletePlayList } from "../util/myplaylist_api_util";
+
 //Beautiful DND
 import { DragDropContext } from "react-beautiful-dnd";
 import { Droppable } from "react-beautiful-dnd";
@@ -8,8 +12,10 @@ import { Draggable } from "react-beautiful-dnd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 //Style
 import "./style/video.css"
+
 
 
 
@@ -35,9 +41,8 @@ const reorder = (list, startIndex, endIndex) => {
 
 
 
-const Video = ({videos_id, videos_title, descriptions, thumbnail_urls, views}) => {
+const Video = ({id ,videos_id, videos_title, descriptions, thumbnail_urls, views, setChange, change}) => {
     const [items, setItems] = useState([]);
-    
     useEffect(() => {
         let videos = converData(videos_id, videos_title, descriptions, thumbnail_urls, views)
         setItems(videos)
@@ -67,60 +72,76 @@ const Video = ({videos_id, videos_title, descriptions, thumbnail_urls, views}) =
         setItems(newItems)
     };
 
-    console.log(items)
+    
+    const handleDelete = (id) => {
+        deletePlayList(id)
+        setChange(!change)
+    }
+
     const handleVideos = () => {
         if(items.length === 0){
             return (
-                <h1>Nothing is in the PlayList</h1>
+                <Col className="d-flex justify-content-center my-3">
+                    <Button variant="outline-danger" onClick={() => handleDelete(id)}>Delete</Button>
+                </Col>
             )
         }else{
                 return (
-                    <Row className="h-100">
-                        <Col mb={12} >
-                            <h3>{items[0].videos_title}</h3>
-                            <Container className="w-100 videoPlayer">
-                                <iframe
-                                src={`https://www.youtube.com/embed/${items[0].video_id}`}
+                    <Container className="currentPlayList mt-3">
+                        <Row>
+                            <Col xs={12} mb={12} className="px-0 videoViewer">
+                                <iframe src={items.length === 0 ? "http://www.youtube.com/embed/" : `http://www.youtube.com/embed/${items[0].video_id}`}
                                 title="YouTube video"
                                 allowFullScreen
-                                className="w-50"></iframe>
-                            </Container>
-                            <Container>
-                                <h5>Description: </h5>
-                                <p className="description">{items[0].description}</p>
-                                <h5>Views: {items[0].views }</h5>
-                            </Container>
-                        </Col>
-                        <Col md={12}>
-                            <Container>
+                                className="w-100 h-100"></iframe>
+                            </Col>
+                            <Col xs={12} mb={12} className="text_description">
+                                <div>
+                                    <h4>{items.length === 0 ? "No video" : items[0].videos_title}</h4>
+                                    <h6>{items.length === 0 ? "" : `Views : ${items[0].views}`}</h6>
+                                </div>
+                                <h5>{items.length === 0 ? "" : "Description :"}</h5>
+                                <p className="p-3">{items.length === 0 ? "" : items[0].description}</p>
+                            </Col>
+                            <Col className="btn_col" xs={12} mb={12}>
+                                <h3 className="unSavePlayList">Play List : </h3>
                                 <DragDropContext onDragEnd={onDragEnd}>
                                     <Droppable droppableId="droppable">
-                                    {(provided) => (
-                                        <Col className=""
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                        >
-                                        {items.map((video, index) => (
-                                            <Draggable key={video.video_id} draggableId={video.video_id} index={index}>
-                                            {(provided) => (
-                                                <Row className="mb-2" 
+                                        {(provided) => (
+                                            <Col
+                                                {...provided.droppableProps}
                                                 ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
                                                 >
-                                                    <p>{video.videos_title}</p>
-                                                </Row>
-                                            )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                        </Col>
-                                    )}
+                                                {items.map((video, index) => (
+                                                    <Draggable key={video.video_id} draggableId={video.video_id} index={index}>
+                                                    {(provided) => (
+                                                        <Row className="playlistItem" 
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        >
+                                                            <Col className="p-0" xs={5} mb={2} >
+                                                                    <img src={video.thumbnail_url} alt={video.videos_title} />
+                                                            </Col>
+                                                            <Col className="pt-3" xs={7} mb={8}>
+                                                                <h6 className="video_title">{video.videos_title}</h6>
+                                                                <p className="description">{video.description}</p> 
+                                                            </Col>
+                                                        </Row>
+                                                    )}
+                                                    </Draggable>
+                                                ))}
+                                                {provided.placeholder}
+                                                <Col className="d-flex justify-content-center my-3">
+                                                    <Button variant="outline-danger" onClick={() => handleDelete(id)}>Delete</Button>
+                                                </Col>
+                                            </Col>
+                                        )}
                                     </Droppable>
                                 </DragDropContext> 
-                            </Container>                            
-                        </Col>
-                    </Row>
+                            </Col>
+                        </Row>
+                    </Container>
                 )
         }
     }

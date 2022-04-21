@@ -1,3 +1,8 @@
-.myPlayList{
+.accordinItem{
+    background-color: #181818 !important;
+}
 
+.accordion-button{
+    color: #ffff !important;
+    background-color: #303030 !important;
 }
