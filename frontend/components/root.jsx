@@ -76,7 +76,6 @@ const Root = () => {
         createPlayList(title, videos_id, videos_title, views, likes, comments, descriptions, thumbnail_urls)
         setChange(!change)
         setPlm("")
-        debugger
         setMyList([])
     }
     return (
