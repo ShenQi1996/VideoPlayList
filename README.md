@@ -22,5 +22,3 @@ Things you may want to cover:
 - Deployment instructions
 
 - ...
-
-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
